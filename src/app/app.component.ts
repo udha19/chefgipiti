@@ -7,4 +7,11 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'chefgpt';
+  
+  showResult = false;
+  result_data: any
+  getResult(event: any) {
+    this.showResult = true;
+    this.result_data = event;
+  }
 }
