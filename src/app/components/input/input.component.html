@@ -1,5 +1,5 @@
 <div class="w-full flex flex-col justify-center" *ngIf="loading">
-    <p class="text-center text-primary-content bold text-lg">Memproses resep {{food_name}}</p>
+    <p class="text-center text-primary-content bold text-lg">{{'PROCESSING' | translate}} {{food_name}}</p>
     <span class="loading loading-bars loading-xl self-center my-2 text-primary-content "></span>
 </div>
 <div class="w-full flex justify-center" *ngIf="!loading">
@@ -8,7 +8,7 @@
             <label class="input validator join-item">
                 <input
                     type="text"
-                    placeholder="Nama Masakan"
+                    [placeholder]="'PLACEHOLDER' | translate"
                     [(ngModel)]="food_name"
                 >
             </label>
@@ -17,13 +17,20 @@
     </div>
 </div>
 
-<h2 class="text-center mt-4" *ngIf="!loading">pilih kategori :</h2>
+<h2 class="text-center mt-4" *ngIf="!loading">{{'CHOOSE' | translate}}</h2>
 <div class="max-w-[600px] flex flex-wrap gap-2 justify-center my-2" *ngIf="!loading">
     <button
         *ngFor="let item of category"
         class="btn btn-outline btn-primary-content"
         (click)="pickCategory(item.nama_id)"
     >
-        {{item.nama_id}}
+        {{used_lang == 'id' ? item.nama_id : item.nama_en}}
     </button>
+</div>
+
+<div role="alert" class="alert alert-error" *ngIf="error">
+  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 shrink-0 stroke-current" fill="none" viewBox="0 0 24 24">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+  </svg>
+  <span>Error! Task failed successfully.</span>
 </div>

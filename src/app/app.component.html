@@ -94,17 +94,18 @@
   }
 
 </style>
-<main class="main bg-primary flex flex-col justify-center">
+<main class="main bg-primary flex-col pb-8">
+  <app-header></app-header>
     <div
-        class="flex flex-col w-full justify-center items-center mb-4"
+        class="flex flex-col w-full justify-center items-center mb-4 mt-12"
         *ngIf="!showResult"
     >
         <img
-            class="w-1/2 min-w-[640px]"
+            class="w-1/2 min-w-[640px] rounded-md shadow-lg"
             src="/assets/cheffgpt-banner.png"
             alt="Angular Logo"
         >
-        <h2 class="text-3xl top-[-2]  font-bold text-primary-content ">Mau masak apa hari ini?</h2>
+        <h2 class="text-3xl top-[-2]  font-bold text-primary-content ">{{'GREETING' | translate}}</h2>
     </div>
     <div
         class="flex justify-center w-full"
@@ -114,10 +115,10 @@
     </div>
     <button
         (click)="showResult = !showResult"
-        class="btn btn-wide my-4 self-center"
         *ngIf="showResult"
+        class="btn btn-wide my-8 flex mx-auto"
     >
-        Ingin Memasak Yang Lain
+        {{'TRY_AGAIN' | translate}}
     </button>
     <div
         class="flex justify-center w-full"

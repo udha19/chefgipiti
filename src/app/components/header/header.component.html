@@ -1,0 +1,38 @@
+<div class="navbar bg-success shadow-sm top-0 z-50 sticky">
+    <div class="flex-1">
+        <a class="btn btn-ghost text-xl">Chefgipiti</a>
+    </div>
+    <div class="flex-none">
+        <ul class="menu menu-horizontal px-1">
+            <li>
+                <a href="https://www.instagram.com/chefgipiti/" target="_blank">
+                    <lucide-icon name="instagram" class="my-icon"></lucide-icon>
+                </a>
+            </li>
+            
+                <li class="dropdown dropdown-center">
+                    <div
+                        tabindex="0"
+                        role="button"
+                        class="btn btn-ghost btn-circle"
+                    >
+                        <lucide-icon name="globe" class="my-icon"></lucide-icon>
+
+                    </div>
+                    <ul
+                        tabindex="0"
+                        class="menu menu-sm dropdown-content bg-success rounded-box z-1 mt-3 w-52 p-2 shadow"
+                    >
+                        <li>
+                            <a (click)="changeLang('id')">Bahasa</a>
+                        </li>
+                        <li>
+                            <a (click)="changeLang('en')">Language</a>
+                        </li>
+                    </ul>
+                </li>
+
+        </ul>
+    </div>
+
+</div>

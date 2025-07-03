@@ -1,19 +1,58 @@
-<div class="flex flex-col items-center justify-center w-full my-4">
+<div class="flex flex-col items-center justify-center w-full my-4 py-8" #pdfContent id="pdfContent">
     <img
         [src]="'data:image/png;base64,'+data.image"
         alt
-        class="w-3/4 shadow-lg rounded-md" 
+        class="w-3/4 shadow-lg rounded-md"
+        (click)="share()"
     >
     <div class="card sm:w-full  md:w-3/4 my-2 bg-base-100 shadow-sm mx-2">
         <div class="card-body">
             <div class="flex justify-between">
-                <h2 class="text-3xl font-bold capitalize">Resep {{data.food_name}} </h2>
+                <h2 class="text-3xl font-bold capitalize text-primary-content ">Resep {{data.food_name}}</h2>
             </div>
-            <pre class="mx">{{data.recipe}}</pre>
+            <div class="flex ">
+                <div class="flex items-center gap-2">
+                    <span-lucide
+                        name="users"
+                        class="text-primary-content"
+                    ></span-lucide>
+                    <p class="text-sm text-gray-500">Porsi: {{recipe_data.serve}}</p>
+                </div>
 
-            <div class="mt-6">
-                <!-- <button class="btn btn-primary btn-block">Share</button> -->
+                <div class="divider lg:divider-horizontal"></div>
+                <div class="flex items-center gap-2">
+                    <span-lucide
+                        name="clock"
+                        class="text-primary-content"
+                    ></span-lucide>
+                    <p class="text-sm text-gray-500">
+                        lama pembuatan: {{recipe_data.cooking_time}}
+                    </p>
+                </div>
             </div>
+            <div>
+                <h2 class="text-2xl text-primary-content text-center">Bahan</h2>
+                <ul class="list-bullet">
+                    <li
+                        class="font-barlow"
+                        *ngFor="let ingredient of recipe_data.ingredients"
+                    >
+                        {{ingredient}}
+                    </li>
+                </ul>
+            </div>
+            <div>
+                <h2 class="text-2xl text-primary-content text-center">Langkah pembuatan</h2>
+                <ul class="list-bullet">
+                    <li
+                        class="font-barlow"
+                        *ngFor="let steps of recipe_data.steps"
+                    >
+                        {{steps}}
+                    </li>
+                </ul>
+            </div>
+          
         </div>
     </div>
 </div>

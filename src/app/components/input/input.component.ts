@@ -10,13 +10,23 @@ export class InputComponent {
   @Output() result = new EventEmitter<any>();
 
   food_name = '';
-  loading = false
+  loading = false;
+  error = false;
 
   category = [
     {
       id: 'appetizers',
       nama_id: 'Hidangan Pembuka',
       nama_en: 'Appetizers',
+      deskripsi_id:
+        'Sajian ringan yang disajikan sebelum hidangan utama untuk membangkitkan selera makan.',
+      deskripsi_en:
+        'Light dishes served before the main course to stimulate appetite.',
+    },
+    {
+      id: 'noodle',
+      nama_id: 'Mie',
+      nama_en: 'Noodle',
       deskripsi_id:
         'Sajian ringan yang disajikan sebelum hidangan utama untuk membangkitkan selera makan.',
       deskripsi_en:
@@ -98,30 +108,50 @@ export class InputComponent {
     },
   ];
 
+  used_lang = localStorage.getItem('language') || 'en';
+
   constructor(private ai: GeminiService) {}
 
   pickCategory(category: string) {
-    this.loading = true
+    this.loading = true;
     this.ai.generateFromCategory(category).then((response) => {
-      this.food_name = response;
+      const list = JSON.parse(response);
+      const idx = Math.floor(Math.random() * (25 - 1 + 1)) + 1;
+      this.food_name = list[0].food_list[idx];
       this.getFood();
     });
   }
 
   async getFood() {
-    this.loading = true
+    this.loading = true;
 
-    const recipe = await this.ai.generateFood(this.food_name).then((response) => {
-      return response
-    });
-    const img = await this.ai.generateFoodImage(this.food_name).then((response) => {
-      return response
-      this.loading = false
-    })
+    const recipe = await this.ai.generateFood(this.food_name).then(
+      (response) => {
+        return response;
+      },
+      (error) => {
+        console.error('Error fetching image:', error);
+        error = true;
+        this.loading = false;
+        return 'https://via.placeholder.com/150'; // Fallback image
+      }
+    );
+    const img = await this.ai.generateFoodImage(this.food_name).then(
+      (response) => {
+        return response;
+        this.loading = false;
+      },
+      (error) => {
+        console.error('Error fetching image:', error);
+        error = true;
+        this.loading = false;
+        return 'https://via.placeholder.com/150'; // Fallback image
+      }
+    );
     this.result.emit({
       food_name: this.food_name,
       recipe: recipe,
       image: img,
-    })
+    });
   }
 }
